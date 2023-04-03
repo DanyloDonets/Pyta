@@ -13,21 +13,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_main)
-        //val intent = Intent(this@MainActivity, Login::class.java)
-        //startActivity(intent)
-        btn = findViewById(R.id.btn)
+    setContentView(R.layout.activity_login)
 
-
-        Log.e("Logining", "text")
-
-        btn.setOnClickListener {
-            Log.i("Click", "clicked")
-            //regtext.text = "putin huylo"
-            setContentView(R.layout.activity_login)
             val intent = Intent(this@MainActivity, Login::class.java)
             startActivity(intent)
-        }
+
 
     }
 }

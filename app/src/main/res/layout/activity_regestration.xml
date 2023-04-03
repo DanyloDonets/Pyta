@@ -21,15 +21,15 @@
 
 
     <Button
-        android:id="@+id/ResBtn"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:id="@+id/RegBtn"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
         android:layout_alignTop="@+id/RegForm"
         android:layout_alignBottom="@+id/RegForm"
         android:layout_marginStart="344dp"
-        android:layout_marginTop="34dp"
+        android:layout_marginTop="50dp"
         android:layout_marginRight="-60dp"
-        android:layout_marginBottom="34dp"
+        android:layout_marginBottom="45dp"
         android:background="@drawable/login_button"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="@+id/RegForm"
@@ -53,6 +53,44 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/Email"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_alignTop="@+id/RegForm"
+        android:backgroundTint="@android:color/transparent"
+        android:hint="Введіть Email"
+        android:textColorHint="@color/white"
+        android:maxLength="30"
+        app:layout_constraintTop_toTopOf="@+id/RegForm"/>
+
+    <EditText
+        android:id="@+id/Pass"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/Email"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="64dp"
+        android:backgroundTint="@android:color/transparent"
+        android:hint="Введіть пароль"
+        android:maxLength="30"
+        android:textColorHint="@color/white"
+        app:layout_constraintTop_toTopOf="@+id/RegForm" />
+
+    <EditText
+        android:id="@+id/CPass"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_alignBottom="@+id/RegForm"
+        android:backgroundTint="@android:color/transparent"
+        android:hint="Повторіть пароль"
+        android:textColorHint="@color/white"
+        android:maxLength="30"
+        app:layout_constraintTop_toTopOf="@+id/RegForm"/>
 
 
 </RelativeLayout>
