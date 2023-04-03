@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1096797131131",
+    "firebase_url": "https://newsapp-5cf39-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "newsapp-5cf39",
+    "storage_bucket": "newsapp-5cf39.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1096797131131:android:915cde9d895f3e42bc6dde",
+        "android_client_info": {
+          "package_name": "com.voiceassistant.ruta"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1096797131131-gck50o4pabo13h4olkdmg899tibll9c8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDhzkuV67tLwLwEoNjZGTlw0Nj5iFFJ-5k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1096797131131-gck50o4pabo13h4olkdmg899tibll9c8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
