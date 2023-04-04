@@ -4,8 +4,8 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import android.speech.SpeechRecognizer
 import android.speech.tts.TextToSpeech
+import android.util.Log
 import android.view.MotionEvent
 import android.widget.Button
 import android.widget.EditText
@@ -14,7 +14,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import java.util.*
 
 
 class MainMenu : AppCompatActivity(), Recognizer.OnResultsListener {
@@ -23,6 +22,9 @@ class MainMenu : AppCompatActivity(), Recognizer.OnResultsListener {
     private lateinit var recognizer: Recognizer
     private lateinit var ttsBtn: Button
     private lateinit var speech: Speech
+
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,8 +35,9 @@ class MainMenu : AppCompatActivity(), Recognizer.OnResultsListener {
         editText = findViewById(R.id.edtSpeechText)
         micButton = findViewById(R.id.imgBtnMic)
         recognizer = Recognizer(this, this)
-        speech = Speech()
+        speech = Speech(this)
         ttsBtn = findViewById(R.id.ttsBtn)
+        recognizer.startListening()
 
         micButton.setOnTouchListener { _, motionEvent ->
             when (motionEvent.action) {
@@ -42,12 +45,16 @@ class MainMenu : AppCompatActivity(), Recognizer.OnResultsListener {
                 MotionEvent.ACTION_DOWN -> {
                     micButton.setImageResource(R.drawable.ic_mics)
                     recognizer.startListening()
+
                 }
+
+
             }
             false
         }
 
         ttsBtn.setOnClickListener {
+            Log.i("Speech text",editText.text.toString())
            speech.speak(editText.text.toString())
         }
     }
@@ -58,8 +65,12 @@ class MainMenu : AppCompatActivity(), Recognizer.OnResultsListener {
     }
 
     override fun onResults(result: String) {
+
         micButton.setImageResource(R.drawable.ic_mic_off)
         editText.setText(result)
+        if (result.toString() == "Слава Україні"){
+            speech.speak("Героям Слава")
+        }
 
     }
 
@@ -83,11 +94,13 @@ class MainMenu : AppCompatActivity(), Recognizer.OnResultsListener {
         ) == PackageManager.PERMISSION_GRANTED
 
     private fun requestPermission() {
-        ActivityCompat.requestPermissions(
-            this,
-            arrayOf(Manifest.permission.RECORD_AUDIO),
-            PERMISSION_RECORD_AUDIO_REQUEST
-        )
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf<String>(Manifest.permission.RECORD_AUDIO),
+                MainMenu.Companion.PERMISSION_RECORD_AUDIO_REQUEST
+            )
+        }
     }
 
     companion object {
