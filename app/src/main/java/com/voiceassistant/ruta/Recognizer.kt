@@ -65,6 +65,7 @@ class Recognizer(private val context: Context, private val onResultsListener: On
     }
 
     interface OnResultsListener {
+
         fun onResults(result: String)
     }
 }

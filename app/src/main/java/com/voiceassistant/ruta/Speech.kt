@@ -1,6 +1,5 @@
 package com.voiceassistant.ruta
 
-import VoiceList
 import android.content.Context
 import android.speech.tts.TextToSpeech
 import android.util.Log
@@ -24,12 +23,9 @@ class Speech(private val context: Context) : TextToSpeech.OnInitListener {
 
     override fun onInit(status: Int) {
         if (status == TextToSpeech.SUCCESS) {
-            val result = tts?.setLanguage(Locale("uk", "UA"))
+            val result = tts?.setLanguage(Locale.US)
             if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
                 Log.e("TTS","The Language not supported!")
-            } else {
-                // Set the voice to a female English voice
-                //tts?.voice = VoiceList(context).getFemaleEnglishVoice()
             }
         } else {
             Log.e("TTS", "TextToSpeech initialization failed")

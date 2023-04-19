@@ -10,52 +10,46 @@
     android:background="@drawable/bg_gradient"
    >
 
-   <TextView
-       android:id="@+id/tv_speech_to_text"
+   <androidx.recyclerview.widget.RecyclerView
        android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:layout_alignParentTop="true"
-       android:layout_marginTop="160dp"
-       android:gravity="center"
-       android:text="Speech to Text"
-       android:textColor="@color/purple_700"
-       android:textSize="30sp"
-       android:textStyle="bold" />
+       android:layout_height="match_parent"
+       android:id="@+id/recycler_view"
+       android:layout_above="@id/bottom_layout"
+       />
+
 
    <RelativeLayout
-       android:id="@+id/rl"
        android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:layout_below="@+id/tv_speech_to_text"
-       android:layout_marginLeft="10dp"
-       android:layout_marginTop="30dp"
-       android:layout_marginRight="10dp">
-
+       android:layout_height="80dp"
+       android:layout_alignParentBottom="true"
+       android:padding="8dp"
+       android:id="@+id/bottom_layout">
 
       <EditText
-          android:id="@+id/edtSpeechText"
+          android:id="@+id/message_edit_text"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_centerInParent="true"
-          android:layout_marginRight="15dp"
-          android:layout_toLeftOf="@id/imgBtnMic"
-          android:hint="Text output of recorded audio"
-          android:padding="10dp" />
+          android:layout_toLeftOf="@id/send_btn"
+          android:background="@drawable/rounded_corner_right"
+          android:hint="Talk to Chat "
+          android:padding="16dp" />
 
       <ImageButton
-          android:id="@+id/imgBtnMic"
-          android:layout_width="40dp"
-          android:layout_height="40dp"
-          android:layout_alignParentRight="true"
-          android:backgroundTint="#F9F8FA"
-          android:paddingRight="10dp"
-          android:src="@drawable/ic_mic_off" />
+          android:id="@+id/send_btn"
+          android:layout_width="48dp"
+          android:layout_height="48dp"
+          android:layout_alignParentEnd="true"
+          android:layout_centerInParent="true"
+          android:layout_marginStart="10dp"
+          android:background="?attr/selectableItemBackgroundBorderless"
+
+          android:padding="8dp"
+          android:src="@drawable/send_svgrepo_com"
+          android:contentDescription="TODO" />
+
 
    </RelativeLayout>
-   <Button
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-      android:id="@+id/ttsBtn"/>
 
 
 

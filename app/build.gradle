@@ -14,6 +14,7 @@ android {
         resources.excludes.add("META-INF/*")
     }
 
+
     defaultConfig {
         applicationId "com.voiceassistant.ruta"
         minSdk 27
@@ -37,11 +38,35 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    buildFeatures {
+        dataBinding true
+        viewBinding true
+    }
 
 }
 
 
 dependencies {
+    annotationProcessor 'com.android.databinding:compiler:3.1.4'
+
+    implementation 'com.squareup.okhttp3:okhttp:5.0.0-alpha.2'
+    implementation 'com.squareup.moshi:moshi:1.12.0'
+    implementation 'com.squareup.moshi:moshi-kotlin:1.12.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+
+    // ViewModel
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.1")
+
+    implementation "com.aallam.openai:openai-client:3.2.0"
+    implementation platform('com.aallam.openai:openai-client-bom:3.2.0')
+
+    // define dependencies without versions
+    implementation 'com.aallam.openai:openai-client'
+    implementation 'io.ktor:ktor-client-okhttp'
 
 
     implementation 'com.just-ai.jaicf:core:1.2.5'
@@ -52,5 +77,9 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+
+
+
 
 }
