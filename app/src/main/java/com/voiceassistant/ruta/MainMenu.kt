@@ -12,26 +12,27 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.voiceassistant.ruta.commands.CheckCommands
 import com.voiceassistant.ruta.databinding.ActivityMainMenuBinding
-import com.voiceassistant.ruta.model.Message
 
 
 class MainMenu : AppCompatActivity(), Recognizer.OnResultsListener {
     private lateinit var editText: EditText
-    //private lateinit var micButton: ImageButton
+    private  lateinit var CheckCommands:CheckCommands
     private lateinit var recognizer: Recognizer
-    //private lateinit var ttsBtn: Button
+
     private lateinit var speech: Speech
     private lateinit var _binding : ActivityMainMenuBinding
     private lateinit var chatGptViewModel: ChatGptViewModel
     private lateinit var recyclerView:RecyclerView
-    //private  var Context:Context ? = null
+
 
 
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         speech= Speech(this)
         _binding = ActivityMainMenuBinding.inflate(layoutInflater)
         val binding = _binding.root
@@ -42,17 +43,10 @@ class MainMenu : AppCompatActivity(), Recognizer.OnResultsListener {
         if (isPermissionGranted) {
             requestPermission()
         }
-       // editText = findViewById(R.id.edtSpeechText)
-       // micButton = findViewById(R.id.imgBtnMic)
 
         recognizer = Recognizer(applicationContext, this)
-       // speech = Speech(applicationContext)
+
         recyclerView = findViewById(R.id.recycler_view)
-            //ttsBtn = findViewById(R.id.ttsBtn)
-
-
-
-
 
         chatGptViewModel = ViewModelProvider(this)[ChatGptViewModel::class.java]
 
@@ -68,18 +62,6 @@ class MainMenu : AppCompatActivity(), Recognizer.OnResultsListener {
 
             val question = _binding.messageEditText.text.toString()
             recognizer.startListening()
-            chatGptViewModel.addToChat("Слухаю...", Message.SENT_BY_BOT,chatGptViewModel.getCurrentTimestamp())
-
-
-            //chatGptViewModel.addToChat(question, Message.SENT_BY_ME,chatGptViewModel.getCurrentTimestamp())
-            //_binding.messageEditText.setText("")
-            //chatGptViewModel.callApi(question)
-            //val adapter = recyclerView.adapter as MessageAdapter
-            //val messages = adapter.itemCount
-            //if (messages != 0) {
-              //  val lastMessage = recyclerView.get(messages-1)
-                //speech.speak(lastMessage.toString())
-            //}
 
 
 
@@ -88,24 +70,6 @@ class MainMenu : AppCompatActivity(), Recognizer.OnResultsListener {
 
 
 
-        /*micButton.setOnTouchListener { _, motionEvent ->
-            when (motionEvent.action) {
-                MotionEvent.ACTION_UP -> recognizer.stopListening()
-                MotionEvent.ACTION_DOWN -> {
-                    micButton.setImageResource(R.drawable.ic_mics)
-                    recognizer.startListening()
-
-                }
-
-
-            }
-            false
-        }*/
-
-       // ttsBtn.setOnClickListener {
-         //   Log.i("Speech text",editText.text.toString())
-           //speech.speak(editText.text.toString())
-        //}
     }
 
     override fun onDestroy() {
@@ -117,24 +81,8 @@ class MainMenu : AppCompatActivity(), Recognizer.OnResultsListener {
 
     override fun onResults(result: String) {
 
-        Toast.makeText(this, result, Toast.LENGTH_SHORT).show()
-        chatGptViewModel.addToChat(result, Message.SENT_BY_ME,chatGptViewModel.getCurrentTimestamp())
-        Toast.makeText(this, "1req", Toast.LENGTH_SHORT).show()
-        //_binding.messageEditText.setText("")
-        chatGptViewModel.callApi(result,speech)
 
-        //speech.speak(result)
-/*
-        Toast.makeText(this, "2req", Toast.LENGTH_SHORT).show()
-        val adapter = recyclerView.adapter as MessageAdapter
-        val messages = adapter.itemCount
-        if (messages != 0) {
-            val lastMessage = recyclerView.get(messages-1)
-            speech.speak(lastMessage.toString())
-        }
-        //micButton.setImageResource(R.drawable.ic_mic_off)
-        //editText.setText(result)
-*/
+        CheckCommands.commands(result,this)
 
     }
 
