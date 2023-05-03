@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.voiceassistant.ruta.commands.CheckCommands
 import com.voiceassistant.ruta.databinding.ActivityMainMenuBinding
+import com.voiceassistant.ruta.model.Message
 
 
 class MainMenu : AppCompatActivity(), Recognizer.OnResultsListener {
@@ -32,16 +33,21 @@ class MainMenu : AppCompatActivity(), Recognizer.OnResultsListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        chatGptViewModel= ChatGptViewModel()
+        CheckCommands = CheckCommands()
         speech= Speech(this)
         _binding = ActivityMainMenuBinding.inflate(layoutInflater)
         val binding = _binding.root
 
         setContentView(binding)
-        speech.speak("Привіт")
 
-        if (isPermissionGranted) {
-            requestPermission()
+
+        if (isPermissionGranted(Manifest.permission.RECORD_AUDIO)) {
+            requestPermission(Manifest.permission.RECORD_AUDIO, PERMISSION_RECORD_AUDIO_REQUEST)
+        }
+
+        if (isPermissionGranted(Manifest.permission.READ_CONTACTS)) {
+            requestPermission(Manifest.permission.READ_CONTACTS, PERMISSION_READ_CONTACTS_REQUEST)
         }
 
         recognizer = Recognizer(applicationContext, this)
@@ -81,8 +87,8 @@ class MainMenu : AppCompatActivity(), Recognizer.OnResultsListener {
 
     override fun onResults(result: String) {
 
-
-        CheckCommands.commands(result,this)
+        chatGptViewModel.addToChat(result, Message.SENT_BY_ME,chatGptViewModel.getCurrentTimestamp())
+        CheckCommands.commands(result, chatGptViewModel,this,speech)
 
     }
 
@@ -92,31 +98,41 @@ class MainMenu : AppCompatActivity(), Recognizer.OnResultsListener {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == PERMISSION_RECORD_AUDIO_REQUEST && grantResults.isNotEmpty()
-            && grantResults[0] == PackageManager.PERMISSION_GRANTED
-        ) {
-            Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show()
+
+        when (requestCode) {
+            PERMISSION_RECORD_AUDIO_REQUEST -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(this, "Permission to record audio granted", Toast.LENGTH_SHORT).show()
+                }
+            }
+            PERMISSION_READ_CONTACTS_REQUEST -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(this, "Permission to read contacts granted", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 
-    private val isPermissionGranted: Boolean
-        get() = ContextCompat.checkSelfPermission(
+    private fun isPermissionGranted(permission: String): Boolean {
+        return ContextCompat.checkSelfPermission(
             this,
-            Manifest.permission.RECORD_AUDIO
+            permission
         ) == PackageManager.PERMISSION_GRANTED
+    }
 
-    private fun requestPermission() {
+    private fun requestPermission(permission: String, requestCode: Int) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             ActivityCompat.requestPermissions(
                 this,
-                arrayOf<String>(Manifest.permission.RECORD_AUDIO),
-                MainMenu.Companion.PERMISSION_RECORD_AUDIO_REQUEST
+                arrayOf(permission),
+                requestCode
             )
         }
     }
 
     companion object {
         private const val PERMISSION_RECORD_AUDIO_REQUEST = 1
+        private const val PERMISSION_READ_CONTACTS_REQUEST = 2
     }
 }
 
