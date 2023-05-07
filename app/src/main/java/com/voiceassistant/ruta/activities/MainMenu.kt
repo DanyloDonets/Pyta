@@ -1,6 +1,7 @@
-package com.voiceassistant.ruta
+package com.voiceassistant.ruta.activities
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -12,6 +13,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.voiceassistant.ruta.*
 import com.voiceassistant.ruta.commands.CheckCommands
 import com.voiceassistant.ruta.databinding.ActivityMainMenuBinding
 import com.voiceassistant.ruta.model.Message
@@ -31,8 +33,13 @@ class MainMenu : AppCompatActivity(), Recognizer.OnResultsListener {
 
 
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
+
         chatGptViewModel= ChatGptViewModel()
         CheckCommands = CheckCommands()
         speech= Speech(this)
@@ -64,13 +71,22 @@ class MainMenu : AppCompatActivity(), Recognizer.OnResultsListener {
             _binding.recyclerView.adapter = adapter
         }
 
-        _binding.sendBtn.setOnClickListener {
+        _binding.micBtn.setOnClickListener {
 
-            val question = _binding.messageEditText.text.toString()
+
             recognizer.startListening()
 
 
 
+        }
+
+       _binding.accountBtn.setOnClickListener {
+            val intent = Intent(this@MainMenu, Account::class.java)
+            startActivity(intent)
+        }
+           _binding.settingsBtn.setOnClickListener {
+            val intent = Intent(this@MainMenu, Settings::class.java)
+            startActivity(intent)
         }
 
 

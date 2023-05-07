@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainMenu"
+    tools:context=".activities.MainMenu"
 
     android:background="@drawable/bg_gradient"
    >
@@ -41,7 +41,7 @@
           android:contentDescription="TODO"
           android:padding="8dp"
           android:scaleType="fitCenter"
-          android:src="@drawable/settingsIcon" />
+          android:src="@drawable/settings_icon" />
 
       <ImageButton
 
@@ -57,7 +57,7 @@
           android:contentDescription="TODO"
           android:padding="8dp"
           android:scaleType="fitCenter"
-          android:src="@drawable/accountIcon" />
+          android:src="@drawable/account_icon" />
 
       <ImageButton
 
@@ -73,7 +73,7 @@
           android:contentDescription="TODO"
           android:padding="8dp"
           android:scaleType="fitCenter"
-          android:src="@drawable/chatIcon" />
+          android:src="@drawable/chat_icon" />
 
 
    </RelativeLayout>
@@ -88,7 +88,7 @@
 
          <ImageButton
 
-             android:id="@+id/send_btn"
+             android:id="@+id/micBtn"
              android:layout_width="fill_parent"
              android:layout_height="fill_parent"
 
@@ -101,7 +101,7 @@
              android:scaleY="1.3"
              android:padding="8dp"
              android:scaleType="fitCenter"
-             android:src="@drawable/micBtn" />
+             android:src="@drawable/mic_btn" />
 
 
 

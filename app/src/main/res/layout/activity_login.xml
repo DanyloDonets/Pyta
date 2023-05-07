@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Login"
+    tools:context=".activities.Login"
     android:background="@drawable/bg_gradient">
 
 
@@ -44,7 +44,7 @@
 
 
     <EditText
-        android:id="@+id/Login"
+        android:id="@+id/Email"
         android:layout_width="320dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="25dp"

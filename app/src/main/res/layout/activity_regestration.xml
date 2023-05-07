@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Regestration"
+    tools:context=".activities.Regestration"
     android:background="@drawable/bg_gradient">
 
 
@@ -22,6 +22,7 @@
 
     <Button
         android:id="@+id/RegBtn"
+        android:gravity="top"
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:layout_alignTop="@+id/RegForm"
@@ -91,6 +92,22 @@
         android:textColorHint="@color/white"
         android:maxLength="30"
         app:layout_constraintTop_toTopOf="@+id/RegForm"/>
+
+
+
+    <TextView
+        android:visibility="invisible"
+        android:textSize="15dp"
+        android:id="@+id/hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/RegForm"
+        android:layout_alignStart="@+id/RegForm"
+        android:text="Вимоги до пароля :\n
+                       * повинен бути не менше 8 символів.\n
+                       * повинен містити принаймні 1 малу та принаймні 1 велику літеру.\n
+                       * повинен мати один спеціальний символ, наприклад ! або + або - або подібне \n
+                       * повинен містити принаймні 1 цифру" />
 
 
 </RelativeLayout>
