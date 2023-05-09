@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.NewPass"
+    android:background="@drawable/bg_gradient">
+
+    <Button
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/backBtn"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/back_btn"
+        android:scaleType="fitXY"
+
+        />
+
+
+    <Button
+        android:id="@+id/RegBtn"
+        android:gravity="top"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_alignTop="@+id/RegForm"
+        android:layout_alignBottom="@+id/RegForm"
+        android:layout_marginStart="344dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginRight="-60dp"
+        android:layout_marginBottom="45dp"
+        android:background="@drawable/login_button"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="@+id/RegForm"
+        app:layout_constraintEnd_toEndOf="@id/RegForm"
+        app:layout_constraintStart_toStartOf="@+id/RegForm"
+        app:layout_constraintTop_toTopOf="@+id/RegForm" />
+
+    <ImageView
+        android:layout_centerVertical="true"
+        android:id="@+id/RegForm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:adjustViewBounds="true"
+        android:background="@android:color/transparent"
+        android:padding="0dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/regestration_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/Code"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_alignTop="@+id/RegForm"
+        android:backgroundTint="@android:color/transparent"
+        android:hint="Введіть код"
+        android:textColorHint="@color/white"
+        android:maxLength="30"
+        app:layout_constraintTop_toTopOf="@+id/RegForm"/>
+
+    <EditText
+        android:id="@+id/Pass"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/Code"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="64dp"
+        android:backgroundTint="@android:color/transparent"
+        android:hint="Введіть  новий пароль"
+        android:maxLength="30"
+        android:textColorHint="@color/white"
+        app:layout_constraintTop_toTopOf="@+id/RegForm" />
+
+    <EditText
+        android:id="@+id/CPass"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_alignBottom="@+id/RegForm"
+        android:backgroundTint="@android:color/transparent"
+        android:hint="Повторіть пароль"
+        android:textColorHint="@color/white"
+        android:maxLength="30"
+        app:layout_constraintTop_toTopOf="@+id/RegForm"/>
+
+
+
+
+
+
+
+
+</RelativeLayout>

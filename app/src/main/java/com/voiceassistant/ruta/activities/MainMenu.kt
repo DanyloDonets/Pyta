@@ -5,7 +5,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -20,7 +19,7 @@ import com.voiceassistant.ruta.model.Message
 
 
 class MainMenu : AppCompatActivity(), Recognizer.OnResultsListener {
-    private lateinit var editText: EditText
+
     private  lateinit var CheckCommands:CheckCommands
     private lateinit var recognizer: Recognizer
 
@@ -81,10 +80,13 @@ class MainMenu : AppCompatActivity(), Recognizer.OnResultsListener {
         }
 
        _binding.accountBtn.setOnClickListener {
+           setContentView(R.layout.activity_account)
             val intent = Intent(this@MainMenu, Account::class.java)
             startActivity(intent)
+
         }
            _binding.settingsBtn.setOnClickListener {
+               setContentView(R.layout.activity_settings)
             val intent = Intent(this@MainMenu, Settings::class.java)
             startActivity(intent)
         }

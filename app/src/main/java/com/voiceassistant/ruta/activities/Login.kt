@@ -1,6 +1,7 @@
 package com.voiceassistant.ruta.activities
 
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.Spannable
@@ -98,6 +99,11 @@ class Login : AppCompatActivity() {
                                 if(decrypt(snap.child("password").value.toString()) == password.text.toString()){
                                     Log.i("snap",snap.child("password").value.toString())
                                     Log.i("snap2",decrypt(snap.child("password").value.toString()).toString())
+                                    val sharedPreferences = getSharedPreferences("myPrefs", Context.MODE_PRIVATE)
+                                    val editor = sharedPreferences.edit()
+                                    editor.putBoolean("logined", true)
+                                    editor.putString("email", email.text.toString().lowercase())
+                                    editor.apply()
                                     setContentView(R.layout.activity_main_menu)
                                     val intent = Intent(this@Login, MainMenu::class.java)
                                     startActivity(intent)

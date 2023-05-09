@@ -69,7 +69,7 @@
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-
+        android:id="@+id/changeBtn"
         android:textColor="@color/white"
         android:textSize="17sp"
         android:focusable="true"
@@ -84,7 +84,7 @@
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-
+        android:id="@+id/exitBtn"
         android:textColor="@color/white"
         android:textSize="17sp"
         android:focusable="true"
