@@ -20,7 +20,7 @@ import com.voiceassistant.ruta.model.Message
 
 class MainMenu : AppCompatActivity(), Recognizer.OnResultsListener {
 
-    private  lateinit var CheckCommands:CheckCommands
+    private lateinit var CheckCommands:CheckCommands
     private lateinit var recognizer: Recognizer
 
     private lateinit var speech: Speech

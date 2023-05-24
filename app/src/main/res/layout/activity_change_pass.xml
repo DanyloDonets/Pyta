@@ -63,6 +63,7 @@
         android:hint="Введіть пароль"
         android:textColorHint="@color/white"
         android:maxLength="30"
+        android:textColor="@color/white"
         app:layout_constraintTop_toTopOf="@+id/ResForm" />
 
     <EditText
@@ -74,6 +75,7 @@
         android:backgroundTint="@android:color/transparent"
         android:hint="Повторіть пароль"
         android:maxLength="30"
+        android:textColor="@color/white"
         android:textColorHint="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/ResForm" />
 

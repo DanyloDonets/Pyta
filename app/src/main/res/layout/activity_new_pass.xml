@@ -63,10 +63,12 @@
         android:backgroundTint="@android:color/transparent"
         android:hint="Введіть код"
         android:textColorHint="@color/white"
+        android:textColor="@color/white"
         android:maxLength="30"
         app:layout_constraintTop_toTopOf="@+id/RegForm"/>
 
     <EditText
+        android:textColor="@color/white"
         android:id="@+id/Pass"
         android:layout_width="320dp"
         android:layout_height="wrap_content"
@@ -82,6 +84,7 @@
 
     <EditText
         android:id="@+id/CPass"
+        android:textColor="@color/white"
         android:layout_width="320dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="25dp"

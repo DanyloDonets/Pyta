@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity() {
             val editor = sharedPreferences.edit()
             editor.putBoolean("logined", false)
             editor.apply()
+            editor.commit()
         }
 
 

@@ -63,6 +63,7 @@
         android:layout_alignTop="@+id/RegForm"
         android:backgroundTint="@android:color/transparent"
         android:hint="Введіть Email"
+        android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:maxLength="30"
         app:layout_constraintTop_toTopOf="@+id/RegForm"/>
@@ -70,6 +71,7 @@
     <EditText
         android:id="@+id/Pass"
         android:layout_width="320dp"
+        android:textColor="@color/white"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/Email"
         android:layout_centerVertical="true"
@@ -85,6 +87,7 @@
         android:id="@+id/CPass"
         android:layout_width="320dp"
         android:layout_height="wrap_content"
+        android:textColor="@color/white"
         android:layout_marginLeft="25dp"
         android:layout_alignBottom="@+id/RegForm"
         android:backgroundTint="@android:color/transparent"
