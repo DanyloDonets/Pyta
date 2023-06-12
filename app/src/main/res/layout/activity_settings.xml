@@ -65,5 +65,46 @@
 
 
     </RelativeLayout>
+    <RelativeLayout
+        android:layout_below="@id/top_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
+        <TextView
+            android:layout_centerHorizontal="true"
+            android:id="@+id/voiceType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Голос асистента"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            />
+
+        <TextView
+            android:textColor="@color/black"
+            android:id="@+id/female"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Жіночий"
+            android:layout_below="@id/voiceType"/>
+
+        <TextView
+            android:textColor="@color/black"
+            android:id="@+id/male"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Чоловічий"
+            android:layout_toRightOf="@id/voiceTypeSwitch"
+            android:layout_below="@id/voiceType"/>
+
+        <Switch
+            android:id="@+id/voiceTypeSwitch"
+            android:layout_below="@id/voiceType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/female"/>
+
+
+
+    </RelativeLayout>
 </RelativeLayout>

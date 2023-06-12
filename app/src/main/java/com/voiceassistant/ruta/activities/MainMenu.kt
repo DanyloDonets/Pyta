@@ -3,9 +3,7 @@ package com.voiceassistant.ruta.activities
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.os.Build
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -47,14 +45,7 @@ class MainMenu : AppCompatActivity(), Recognizer.OnResultsListener {
 
         setContentView(binding)
 
-
-        if (isPermissionGranted(Manifest.permission.RECORD_AUDIO)) {
-            requestPermission(Manifest.permission.RECORD_AUDIO, PERMISSION_RECORD_AUDIO_REQUEST)
-        }
-
-        if (isPermissionGranted(Manifest.permission.READ_CONTACTS)) {
-            requestPermission(Manifest.permission.READ_CONTACTS, PERMISSION_READ_CONTACTS_REQUEST)
-        }
+        checkPermissions()
 
         recognizer = Recognizer(applicationContext, this)
 
@@ -110,47 +101,57 @@ class MainMenu : AppCompatActivity(), Recognizer.OnResultsListener {
 
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String>,
-        grantResults: IntArray
-    ) {
+    private val RECORD_AUDIO_PERMISSION_REQUEST = 1
+    private val READ_CONTACTS_PERMISSION_REQUEST = 2
+    private val CALL_PHONE_PERMISSION_REQUEST = 3
+    private val SET_ALARM_PERMISSION_REQUEST = 4
+    private val SCHEDULE_EXACT_ALARM_PERMISSION_REQUEST = 5
+    private val VIBRATE = 6
+    private  val ACCESS_NOTIFICATION_POLICY = 7
+
+
+
+    // Функція для перевірки дозволів
+    private fun checkPermissions() {
+        val permissions = arrayOf(
+            Manifest.permission.RECORD_AUDIO,
+            Manifest.permission.READ_CONTACTS,
+            Manifest.permission.CALL_PHONE,
+            Manifest.permission.SET_ALARM,
+            Manifest.permission.SCHEDULE_EXACT_ALARM,
+            Manifest.permission.VIBRATE,
+            Manifest.permission.ACCESS_NOTIFICATION_POLICY
+        )
+
+        val permissionsToRequest = mutableListOf<String>()
+
+        for (permission in permissions) {
+            if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
+                permissionsToRequest.add(permission)
+            }
+        }
+
+        if (permissionsToRequest.isNotEmpty()) {
+            ActivityCompat.requestPermissions(this, permissionsToRequest.toTypedArray(), RECORD_AUDIO_PERMISSION_REQUEST)
+        }
+    }
+
+    // Обробник результатів запиту дозволів
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
         when (requestCode) {
-            PERMISSION_RECORD_AUDIO_REQUEST -> {
+            RECORD_AUDIO_PERMISSION_REQUEST -> {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(this, "Permission to record audio granted", Toast.LENGTH_SHORT).show()
+                    // Дозвіл на доступ до запису аудіо отримано
+                    // Виконувати необхідні дії
+                } else {
+                    // Дозвіл на доступ до запису аудіо не отримано
+                    // Обробка відсутності дозволу
                 }
             }
-            PERMISSION_READ_CONTACTS_REQUEST -> {
-                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(this, "Permission to read contacts granted", Toast.LENGTH_SHORT).show()
-                }
-            }
+            // Аналогічно обробляти інші запити дозволів
         }
-    }
-
-    private fun isPermissionGranted(permission: String): Boolean {
-        return ContextCompat.checkSelfPermission(
-            this,
-            permission
-        ) == PackageManager.PERMISSION_GRANTED
-    }
-
-    private fun requestPermission(permission: String, requestCode: Int) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            ActivityCompat.requestPermissions(
-                this,
-                arrayOf(permission),
-                requestCode
-            )
-        }
-    }
-
-    companion object {
-        private const val PERMISSION_RECORD_AUDIO_REQUEST = 1
-        private const val PERMISSION_READ_CONTACTS_REQUEST = 2
     }
 }
 

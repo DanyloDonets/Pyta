@@ -20,22 +20,28 @@ class MainActivity : AppCompatActivity() {
                 setContentView(R.layout.activity_main_menu)
                 val intent = Intent(this@MainActivity, MainMenu::class.java)
                 startActivity(intent)
+
             }
             else{
                 setContentView(R.layout.activity_login)
                 val intent = Intent(this@MainActivity, Login::class.java)
                 startActivity(intent)
+
             }
         } else {
             val editor = sharedPreferences.edit()
             editor.putBoolean("logined", false)
+            editor.putBoolean("voiceType",false)
             editor.apply()
             editor.commit()
+            val intent = Intent(this@MainActivity, Login::class.java)
+            startActivity(intent)
+            finish()
+
         }
 
 
-            val intent = Intent(this@MainActivity, Login::class.java)
-            startActivity(intent)
+
 
 
     }

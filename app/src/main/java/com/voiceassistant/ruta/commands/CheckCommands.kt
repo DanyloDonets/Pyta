@@ -4,8 +4,6 @@ import android.content.Context
 import com.voiceassistant.ruta.ChatGptViewModel
 import com.voiceassistant.ruta.Speech
 import com.voiceassistant.ruta.model.Message
-import java.text.SimpleDateFormat
-import java.util.*
 
 class CheckCommands() {
 
@@ -19,7 +17,7 @@ class CheckCommands() {
         openWebsite = OpenWebsite(context)
         setAlarm = SetAlarm(context)
         callContact = Call(context)
-        setTimer = SetTimer(speech,chatGptViewModel)
+        setTimer = SetTimer(speech,chatGptViewModel, context)
         openApps = OpenApps(context)
         when{
             command.startsWith("Слава Україні", ignoreCase = true)->{
@@ -65,37 +63,59 @@ class CheckCommands() {
                 callContact.callContact(contactName, speech, chatGptViewModel)
             }
             command.startsWith("Постав таймер", ignoreCase = true) ->{
+                val time = getNumbersFromString(command)
 
 
                 speech.speak("Ставлю таймер")
                 chatGptViewModel.addToChat("Ставлю таймер", Message.SENT_BY_BOT,chatGptViewModel.getCurrentTimestamp())
 
-                setTimer.setTimer(command)
+                setTimer.setTimer(command, time[0])
+
             }
             command.startsWith("Постав будильник на", ignoreCase = true)->{
                 val timeString = command.substringAfter("Постав будильник на").trim()
 
                 // Parse the time using SimpleDateFormat
-                val sdf = SimpleDateFormat("hh:mm a", Locale.getDefault())
-                val date = sdf.parse(timeString)
 
-                // If the time is in the past, add one day to the date
-                if (date.before(Date())) {
-                    val calendar = Calendar.getInstance()
-                    calendar.time = date
-                    calendar.add(Calendar.DAY_OF_MONTH, 1)
-                    //setAlarm.setAlarm(calendar.timeInMillis)
                     speech.speak("Будильник поставлено")
                     chatGptViewModel.addToChat("Будильник поставлено", Message.SENT_BY_BOT,chatGptViewModel.getCurrentTimestamp())
-                } else {
-                    speech.speak("Будильник поставлено")
-                    chatGptViewModel.addToChat("Будильник поставлено", Message.SENT_BY_BOT,chatGptViewModel.getCurrentTimestamp())
-                    setAlarm.setAlarm()
-                }
+                    val time = getNumbersFromString(command)
+                    var hour = time[0]
+                    var minutes = 0
+                    if (time.count() > 1){
+                        minutes = time[1]
+
+                    }
+                    if(command.contains("вечора") or command.contains("вечору")){
+                        hour = hour+12
+                    }
+
+                     setAlarm.setAlarm(hour,minutes)
+                chatGptViewModel.addToChat("Будильник поставлено на "+hour+" "+minutes, Message.SENT_BY_BOT,chatGptViewModel.getCurrentTimestamp())
+                speech.speak("Будильник поставлено на "+hour+" "+minutes)
+
             }
             else ->{
                 chatGptViewModel.callApi(command,speech)
             }
         }
     }
+
+    fun getNumbersFromString(input: String): List<Int> {
+        val numberRegex = "\\d+(\\.\\d+)?".toRegex()
+        val matches = numberRegex.findAll(input)
+
+        val numbers = mutableListOf<Int>()
+        for (match in matches) {
+            val number = match.value.toIntOrNull()
+            number?.let {
+                numbers.add(it)
+            }
+        }
+
+        return numbers
+    }
+
+
+
 }

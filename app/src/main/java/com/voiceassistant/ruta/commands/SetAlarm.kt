@@ -1,57 +1,64 @@
-package com.voiceassistant.ruta.commands
+package  com.voiceassistant.ruta.commands
 
 import android.app.AlarmManager
 import android.app.PendingIntent
-import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.os.Build
-import android.widget.Toast
+import android.media.Ringtone
+import android.media.RingtoneManager
+import android.os.VibrationEffect
+import android.os.Vibrator
 import java.util.*
 
-class SetAlarm(private val context: Context){
+class SetAlarm(private val context: Context) {
 
+    private lateinit var alarmManager: AlarmManager
+    private lateinit var vibrator: Vibrator
+    private lateinit var ringtone: Ringtone
 
-
-
-    private val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-
-    fun setAlarm() {
-        // Set the alarm time to 11:00 AM
-        val calendar = Calendar.getInstance().apply {
-            timeInMillis = System.currentTimeMillis()
-            set(Calendar.HOUR_OF_DAY, 11)
-            set(Calendar.MINUTE, 0)
-            set(Calendar.SECOND, 0)
+    fun setAlarm(hours: Int, minutes: Int) {
+        alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        vibrator = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+        ringtone = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM).let {
+            RingtoneManager.getRingtone(context, it)
         }
 
-        // Create a new PendingIntent for the alarm receiver
+        val calendar = Calendar.getInstance()
+        calendar.set(Calendar.HOUR_OF_DAY, hours)
+        calendar.set(Calendar.MINUTE, minutes)
+        calendar.set(Calendar.SECOND, 0)
+
+        alarmManager.setExact(
+            AlarmManager.RTC_WAKEUP,
+            calendar.timeInMillis,
+            getAlarmPendingIntent()
+        )
+    }
+
+    private fun getAlarmPendingIntent(): PendingIntent {
         val intent = Intent(context, AlarmReceiver::class.java)
-        val pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0)
-
-        // Set the alarm using the AlarmManager
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            alarmManager.setExactAndAllowWhileIdle(
-                AlarmManager.RTC_WAKEUP,
-                calendar.timeInMillis,
-                pendingIntent
-            )
-        } else {
-            alarmManager.setExact(
-                AlarmManager.RTC_WAKEUP,
-                calendar.timeInMillis,
-                pendingIntent
-            )
-        }
-
-        Toast.makeText(context, "Alarm set for 11:00 AM", Toast.LENGTH_LONG).show()
+        return PendingIntent.getBroadcast(
+            context,
+            ALARM_REQUEST_CODE,
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT
+        )
     }
 
-    class AlarmReceiver : BroadcastReceiver() {
-
-        override fun onReceive(context: Context, intent: Intent) {
-            // handle alarm event
-        }
+    fun vibrate() {
+        val vibrationEffect = VibrationEffect.createOneShot(1000, VibrationEffect.DEFAULT_AMPLITUDE)
+        vibrator.vibrate(vibrationEffect)
     }
 
+     fun playAlarmSound() {
+        ringtone.play()
+    }
+
+     fun stopAlarmSound() {
+        ringtone.stop()
+    }
+
+    companion object {
+        private const val ALARM_REQUEST_CODE = 123
+    }
 }

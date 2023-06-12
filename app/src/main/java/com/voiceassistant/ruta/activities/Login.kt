@@ -106,6 +106,7 @@ class Login : AppCompatActivity() {
                                     setContentView(R.layout.activity_main_menu)
                                     val intent = Intent(this@Login, MainMenu::class.java)
                                     startActivity(intent)
+                                    finish()
                                 }
                                 else {
                                     Toast.makeText(

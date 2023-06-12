@@ -34,6 +34,7 @@ class Account : AppCompatActivity() {
             setContentView(R.layout.activity_login)
             val intent = Intent(this@Account, Login::class.java)
             startActivity(intent)
+            finish()
         }
         changeBtn.setOnClickListener {
             setContentView(R.layout.activity_change_pass)
